@@ -35,7 +35,7 @@
             <div class="dropdown-menu dropdown-menu--lg border-0 bg-transparent p-0">
                 <div class="card border border-gray-100 rounded-12 box-shadow-custom">
                     <div class="card-body">
-                        <div class="flex-align gap-8 mb-20 pb-20">
+                        <div class="flex-align gap-8 pb-20">
                             <img src="../assets/images/admin.jpg" alt="" class="w-54 h-54 rounded-circle">
                             <div class="">
                                 <h4 class="mb-0"><?php echo $_SESSION['nama']; ?></h4>

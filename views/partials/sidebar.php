@@ -4,6 +4,8 @@ session_start();
 //     header('Location: login.php');
 // }
  ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 <aside class="sidebar">
     <!-- sidebar close btn -->
     <button type="button"
@@ -22,38 +24,40 @@ session_start();
             <ul class="sidebar-menu">
                 <li class="sidebar-menu__item">
                     <a href="index.php" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="icon"><i class="fas fa-home"></i></span> <!-- Ganti dengan icon 'home' -->
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
                 <?php if($_SESSION['role'] == 'admin'){ ?>
                 <li class="sidebar-menu__item">
                     <a href="kriteria.php" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="icon"><i class="fas fa-list"></i></span> <!-- Ganti dengan icon 'list' -->
                         <span class="text">Kriteria</span>
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
                     <a href="anggota.php" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="icon"><i class="fas fa-users"></i></span> <!-- Ganti dengan icon 'users' -->
                         <span class="text">Anggota</span>
                     </a>
                 </li>
                 <li class="sidebar-menu__item">
                     <a href="cek_hitung.php" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="icon"><i class="fas fa-calculator"></i></span>
+                        <!-- Ganti dengan icon 'calculator' -->
                         <span class="text">Hitung</span>
                     </a>
                 </li>
                 <?php } ?>
                 <li class="sidebar-menu__item">
                     <a href="history.php" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="icon"><i class="fas fa-history"></i></span> <!-- Ganti dengan icon 'history' -->
                         <span class="text">History</span>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
+
 
 </aside>
