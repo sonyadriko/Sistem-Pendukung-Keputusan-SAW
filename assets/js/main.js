@@ -87,9 +87,12 @@
   // =========================== Tooltip Js End ===============================
 
   // ============================= Image Upload Js Start ==============================
-  $(function(){ 
-    $("#fileUpload").fileUpload();
-  });
+  // Commented out - fileUpload plugin not available
+  // $(function(){
+  //   if ($("#fileUpload").length) {
+  //     $("#fileUpload").fileUpload();
+  //   }
+  // });
   // ============================= Image Upload Js End ==============================
 
   

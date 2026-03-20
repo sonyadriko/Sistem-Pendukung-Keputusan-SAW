@@ -110,13 +110,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                                                     <td><?php echo $nama; ?></td>
                                                     <td><?php echo $tingkat; ?></td>
                                                     <td><?php echo $jangka_waktu; ?></td>
-                                                    <td><?php echo number_format($realisasi, 2); ?></td>
-                                                    <td><?php echo number_format($jasa, 2); ?></td>
+                                                    <td><?php echo number_format($realisasi, 0, ',', '.'); ?></td>
+                                                    <td><?php echo number_format($jasa, 0, ',', '.'); ?></td>
                                                     <td><?php echo $frekuensi; ?></td>
-                                                    <td><?php echo number_format($modal, 2); ?></td>
+                                                    <td><?php echo number_format($modal, 0, ',', '.'); ?></td>
                                                     <td><?php echo $tgl_terdaftar; ?></td>
-                                                    <td><?php echo number_format($simpanan, 6); ?></td>
-                                                    <td><?php echo number_format($angsuran, 2); ?></td>
+                                                    <td><?php echo number_format($simpanan, 6, ',', '.'); ?></td>
+                                                    <td><?php echo number_format($angsuran, 0, ',', '.'); ?></td>
                                                     <td>
                                                         <input type="checkbox" name="selected_items[]"
                                                             value="<?php echo $id ?>" class="action-checkbox">

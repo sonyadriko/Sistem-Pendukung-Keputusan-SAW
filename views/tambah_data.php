@@ -64,62 +64,74 @@ if (isset($_POST['tambah'])) {
                         <div class="card-body">
                             <h4>Tambah Data Anggota</h4>
                             <form method="post">
-                                <div class="form-group mt-4">
-                                    <label>Nama Anggota</label>
-                                    <input type="text" name="nama" class="form-control"
-                                        placeholder="Masukkan nama anggota" required>
+                                <div class="row mt-4">
+                                    <!-- Left Column -->
+                                    <div class="col-lg-6 pe-4">
+                                        <div class="form-group">
+                                            <label>Nama Anggota</label>
+                                            <input type="text" name="nama" class="form-control"
+                                                placeholder="Masukkan nama anggota" required>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Tingkat Golongan ASN</label>
+                                            <select name="tingkat" class="form-control" required>
+                                                <option value="Honorer">Honorer</option>
+                                                <option value="Gol. I">Gol. I</option>
+                                                <option value="Gol. II">Gol. II</option>
+                                                <option value="Gol. III">Gol. III</option>
+                                                <option value="Gol. IV">Gol. IV</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Jangka Waktu Pinjam (bulan)</label>
+                                            <input type="number" name="jangka_waktu" class="form-control"
+                                                placeholder="Masukkan jangka waktu pinjam" required>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Realisasi Pencairan (IDR)</label>
+                                            <input type="text" name="realisasi" class="form-control"
+                                                placeholder="Masukkan realisasi pencairan" required>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Besarnya Jasa yang Diterima (IDR)</label>
+                                            <input type="text" name="jasa" class="form-control"
+                                                placeholder="Masukkan besarnya jasa yang diterima" required>
+                                        </div>
+                                    </div>
+                                    <!-- Right Column -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Frekuensi Pinjaman (bulan)</label>
+                                            <input type="number" name="frekuensi" class="form-control"
+                                                placeholder="Masukkan frekuensi pinjaman" required>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Jumlah Modal (IDR)</label>
+                                            <input type="number" name="modal" class="form-control"
+                                                placeholder="Masukkan jumlah modal" required>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Intensitas Simpanan Wajib</label>
+                                            <input type="decimal" name="simpanan" class="form-control"
+                                                placeholder="Masukkan intensitas simpanan wajib" required>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Intensitas Angsuran Pinjaman (IDR)</label>
+                                            <input type="text" name="angsuran" class="form-control"
+                                                placeholder="Masukkan intensitas angsuran pinjaman" required>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Tanggal Terdaftar</label>
+                                            <input type="date" name="tanggal_terdaftar" class="form-control" required>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group mt-4">
-                                    <label>Tingkat Golongan ASN</label>
-                                    <select name="tingkat" class="form-control" required>
-                                        <option value="Honorer">Honorer</option>
-                                        <option value="Gol. I">Gol. I</option>
-                                        <option value="Gol. II">Gol. II</option>
-                                        <option value="Gol. III">Gol. III</option>
-                                        <option value="Gol. IV">Gol. IV</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="submit" name="tambah" class="btn btn-primary mt-4">Tambah</button>
+                                        <a href="anggota.php" class="btn btn-secondary mt-4">Batal</a>
+                                    </div>
                                 </div>
-                                <div class="form-group mt-4">
-                                    <label>Jangka Waktu Pinjam (bulan)</label>
-                                    <input type="number" name="jangka_waktu" class="form-control"
-                                        placeholder="Masukkan jangka waktu pinjam" required>
-                                </div>
-                                <div class="form-group mt-4">
-                                    <label>Realisasi Pencairan (IDR)</label>
-                                    <input type="text" name="realisasi" class="form-control"
-                                        placeholder="Masukkan realisasi pencairan" required>
-                                </div>
-                                <div class="form-group mt-4">
-                                    <label>Besarnya Jasa yang Diterima (IDR)</label>
-                                    <input type="text" name="jasa" class="form-control"
-                                        placeholder="Masukkan besarnya jasa yang diterima" required>
-                                </div>
-                                <div class="form-group mt-4">
-                                    <label>Frekuensi Pinjaman (bulan)</label>
-                                    <input type="number" name="frekuensi" class="form-control"
-                                        placeholder="Masukkan frekuensi pinjaman" required>
-                                </div>
-                                <div class="form-group mt-4">
-                                    <label>Jumlah Modal (IDR)</label>
-                                    <input type="number" name="modal" class="form-control"
-                                        placeholder="Masukkan jumlah modal" required>
-                                </div>
-                                <div class="form-group mt-4">
-                                    <label>Intensitas Simpanan Wajib</label>
-                                    <input type="decimal" name="simpanan" class="form-control"
-                                        placeholder="Masukkan intensitas simpanan wajib" required>
-                                </div>
-                                <div class="form-group mt-4">
-                                    <label>Intensitas Angsuran Pinjaman (IDR)</label>
-                                    <input type="text" name="angsuran" class="form-control"
-                                        placeholder="Masukkan intensitas angsuran pinjaman" required>
-                                </div>
-                                <div class="form-group mt-4">
-                                    <label>Tanggal Terdaftar</label>
-                                    <input type="date" name="tanggal_terdaftar" class="form-control" required>
-                                </div>
-                                <button type="submit" name="tambah" class="btn btn-primary mt-4">Tambah</button>
-                                <a href="anggota.php" class="btn btn-secondary mt-4">Batal</a>
                             </form>
                         </div>
                     </div>
