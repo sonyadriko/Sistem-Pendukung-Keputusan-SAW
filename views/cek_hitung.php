@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped-columns" id="dataTable">
                                             <thead>
-                                                <th>#</th>
+                                                <th><input type="checkbox" id="select-all"></th>
                                                 <th>Nama Anggota</th>
                                                 <th>Tingkat Golongan ASN</th>
                                                 <th>Jangka Waktu Pinjam</th>
@@ -162,7 +162,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     <!-- DataTable Initialization -->
     <script>
     $(document).ready(function() {
-        $(' #dataTable').DataTable();
+        $('#dataTable').DataTable();
+
+        // Select All functionality
+        $('#select-all').change(function() {
+            $('.action-checkbox').prop('checked', $(this).prop('checked'));
+        });
     });
     </script>
 

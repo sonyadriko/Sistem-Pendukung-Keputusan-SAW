@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title -->
-    <title>Dashboard</title>
+    <title>Profil KPRI Pemerintah Kota Surabaya</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="../assets/images/logo/favicon.png">
     <!-- Bootstrap -->
@@ -63,38 +63,30 @@
                     <div class="card mt-12">
                         <div class="card-body">
                             <div class="mb-20 flex-between flex-wrap gap-8">
-                                <h4 class="mb-0">Metode Simple Additive Weighting</h4>
-                                <span>Konsep dasar metode SAW ini adalah mencari penjumlahan terbobot dari
-                                    rating kinerja pada setiap alternatif semua atribut. Metode SAW disarankan untuk
-                                    penyeleksian dalam SPK multi proses.</span>
-                                <span>Metode SAW mengenal adanya 2 (dua) atribut yaitu kriteria keuntungan
-                                    alternatif (benefit) dan kriteria biaya (cost). Perbedaan mendasar dari kedua
-                                    kriteria ini adalah dalam pemilihan kriteria ketika mengambil keputusan. Metode
-                                    SAW dapat diartikan sebagai metode pembobotan sederhana atau penjumlahan
-                                    pada penyelesaian masalah dalam sebuah SPK.</span>
-
+                                <h4 class="mb-0">Profil Koperasi Pegawai Republik Indonesia (KPRI)</h4>
+                                <div class="content-profile">
+                                    <p>Koperasi Pegawai Republik Indonesia (KPRI) sebagai wadah perjuangan ekonomi rakyat yang mempunyai tujuan untuk meningkatkan kesejahteraan anggota perorangan beserta keluarganya pada khususnya dan masyarakat pada umumnya. Organisasi disusun secara bertingkat, mulai dari koperasi primer sampai tingkat induk dan merupakan satu kesatuan organisasi dan kekuatan ekonomi yang tidak dapat dipisahkan satu dengan yang lainnya yang berperan dalam pembangunan nasional.</p>
+                                    <p>Untuk mewujudkan hal tersebut dan untuk menyelaraskan dengan perkembangan pembangunan nasional serta amanat yang diemban oleh KPRI, perlu diatur dan disempurnakan kembali dengan segala sesuatu yang berkaitan dengan pengembangan koperasi, sekaligus untuk menyesuaikan terutama dengan UU No. 25 Tahun 1992 tentang perkoperasian, yang dituangkan dalam anggaran dasar KPRI.</p>
+                                </div>
                             </div>
-
                             <div id="doubleLineChart" class="tooltip-style y-value-left"></div>
-
                         </div>
                     </div>
 
                     <div class="card mt-24">
                         <div class="card-body">
                             <div class="mb-20 flex-between flex-wrap gap-8">
-                                <h4 class="mb-0">Kelebihan Metode Simple Additive Weighting</h4>
-                                <span>Kelebihan dari metode SAW antara lain menentukan nilai bobot untuk
-                                    setiap atribut kemudian dilanjutkan dengan proses perankingan yang akan
-                                    menyeleksi alternatif terbaik dari sejumlah alternatif , selanjutnya kelebihan
-                                    metode tersebut yakni penilaian yang dilakukan akan lebih tepat karena
-                                    didasarkan pada nilai kriteria dari bobot preferensi yang sudah ditentukan dan
-                                    adanya perhitungan normalisasi matriks sesuai dengan nilai atribut (antara nilai
-                                    benefit dan cost).</span>
+                                <h4 class="mb-0">KPRI Pemerintah Kota Surabaya</h4>
+                                <div class="content-profile">
+                                    <p><strong>Sejarah Berdiri</strong><br>
+                                    KPRI Pemerintah Kota Surabaya didirikan pada tanggal 13 November 1978 dengan nama Koperasi Pegawai Negeri Kodya Surabaya. Awalnya bertujuan untuk membantu masalah keuangan dan meningkatkan kesejahteraan para Pegawai Negeri Sipil (PNS) lingkungan pemerintah kota Surabaya.</p>
+                                    <p><strong>Perkembangan Nama</strong><br>
+                                    Sejak tahun 1997, nama KPN-Kodya Surabaya diubah menjadi KPRI Pemerintah Kota Surabaya. Hal ini dikarenakan koperasi tidak hanya beranggotakan PNS saja, melainkan juga menerima non-PNS sebagai anggota.</p>
+                                    <p><strong>Usaha dan Layanan</strong><br>
+                                    KPRI menyelenggarakan berbagai usaha untuk meningkatkan kesejahteraan anggota, antara lain Unit Simpan Pinjam, Toko Koperasi, dan berbagai layanan jasa keuangan lainnya.</p>
+                                </div>
                             </div>
-
                             <div id="doubleLineChart" class="tooltip-style y-value-left"></div>
-
                         </div>
                     </div>
                     <!-- Top Course End -->
