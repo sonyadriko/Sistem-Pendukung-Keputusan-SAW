@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped-columns" id="dataTable">
                                             <thead>
-                                                <th><input type="checkbox" id="select-all"></th>
+                                                <th>No</th>
                                                 <th>Nama Anggota</th>
                                                 <th>Tingkat Golongan ASN</th>
                                                 <th>Jangka Waktu Pinjam</th>
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                                                 <th>Tanggal Terdaftar</th>
                                                 <th>Intensitas Simpanan Wajib</th>
                                                 <th>Intensitas Angsuran</th>
-                                                <th>Aksi</th>
+                                                <th><input type="checkbox" id="select-all"></th>
                                             </thead>
                                             <tbody>
                                                 <?php 
@@ -167,6 +167,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         // Select All functionality
         $('#select-all').change(function() {
             $('.action-checkbox').prop('checked', $(this).prop('checked'));
+        });
+
+        // Form validation - check if at least 3 checkboxes are selected
+        $('form').submit(function(e) {
+            const selectedCount = $('.action-checkbox:checked').length;
+            if (selectedCount < 3) {
+                e.preventDefault();
+                alert('Pilih minimal 3 anggota untuk melakukan perhitungan SPK!');
+            }
         });
     });
     </script>

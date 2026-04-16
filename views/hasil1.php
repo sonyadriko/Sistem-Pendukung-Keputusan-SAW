@@ -310,16 +310,30 @@ $get_data = mysqli_query($conn, "SELECT * FROM anggota WHERE id_anggota IN ($sel
                     return $b['nilai'] <=> $a['nilai']; // Descending order
                 });
 
-                // Tampilkan hasil preferensi
-                foreach ($preferensi as $item) {
-                    echo "<tr>";
-                    echo "<td>{$item['nama']}</td>";
-                    echo "<td>" . number_format($item['nilai'], 3) . "</td>";
-                    echo "<td>{$no}</td>";
-                    echo "<input type='hidden' name='nama[]' value='{$item['nama']}'>";
-                    echo "<input type='hidden' name='nilai[]' value='{$item['nilai']}'>";
-                    echo "</tr>";
-                    $no++;
+                // Tampilkan hasil preferensi dengan same rank untuk nilai yang sama
+                $rank = 1;
+                $i = 0;
+                while ($i < count($preferensi)) {
+                    // Hitung berapa orang yang nilai nya sama (tied values)
+                    $tiedCount = 1;
+                    while ($i + $tiedCount < count($preferensi) &&
+                           $preferensi[$i + $tiedCount]['nilai'] == $preferensi[$i]['nilai']) {
+                        $tiedCount++;
+                    }
+
+                    // Tampilkan semua yang tied dengan rank sama
+                    for ($j = 0; $j < $tiedCount; $j++) {
+                        echo "<tr>";
+                        echo "<td>{$preferensi[$i + $j]['nama']}</td>";
+                        echo "<td>" . number_format($preferensi[$i + $j]['nilai'], 3) . "</td>";
+                        echo "<td>{$rank}</td>";  // Rank sama untuk nilai yang sama
+                        echo "<input type='hidden' name='nama[]' value='{$preferensi[$i + $j]['nama']}'>";
+                        echo "<input type='hidden' name='nilai[]' value='{$preferensi[$i + $j]['nilai']}'>";
+                        echo "</tr>";
+                    }
+
+                    $i += $tiedCount;
+                    $rank += $tiedCount;  // Skip rank sesuai jumlah tied
                 }
                 ?>
                                     </tbody>
