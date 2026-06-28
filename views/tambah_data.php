@@ -112,8 +112,8 @@ if (isset($_POST['tambah'])) {
                                         </div>
                                         <div class="form-group mt-3">
                                             <label>Intensitas Simpanan Wajib</label>
-                                            <input type="decimal" name="simpanan" class="form-control"
-                                                placeholder="Masukkan intensitas simpanan wajib" required>
+                                            <input type="number" step="any" name="simpanan" class="form-control"
+                                                placeholder="Masukkan intensitas simpanan wajib (contoh: 0.005782)" required>
                                         </div>
                                         <div class="form-group mt-3">
                                             <label>Intensitas Angsuran Pinjaman (IDR)</label>

@@ -145,7 +145,7 @@ if (isset($_POST['update'])) {
                                 </div>
                                 <div class="form-group mt-4">
                                     <label>Intensitas Simpanan Wajib</label>
-                                    <input type="number" name="simpanan" class="form-control"
+                                    <input type="number" step="any" name="simpanan" class="form-control"
                                         value="<?php echo $simpanan; ?>" required>
                                 </div>
                                 <div class="form-group mt-4">

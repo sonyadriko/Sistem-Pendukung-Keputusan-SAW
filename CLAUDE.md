@@ -16,107 +16,102 @@ This is a **Sistem Pendukung Keputusan (SPK)** - Decision Support System for a K
 
 ### Running the Application
 - Requires XAMPP or similar PHP/MySQL server
-- Access via: `http://localhost/Sistem-Pendukung-Keputusan-SAW/views/login.php`
-- All views are in the `views/` directory
+- `.htaccess` sets `DirectoryIndex views index.php`, so the root URL auto-redirects into `views/`
+- Login entry point: `http://localhost/Sistem-Pendukung-Keputusan-SAW/views/login.php`
+
+### CSS / SASS
+- Source styles are in `assets/sass/` (SCSS files with a BEM-like structure)
+- Compiled output is `assets/css/main.css` — edit the SCSS source and recompile; do not hand-edit the compiled CSS
+- Some CSS/JS dependencies (DataTables, Font Awesome) are loaded from CDN; others are bundled locally in `assets/`
 
 ## Architecture
 
-### Directory Structure
-```
-/
-├── config/
-│   └── database.php          # Database connection (mysqli)
-├── views/
-│   ├── index.php             # Dashboard (SAW method explanation)
-│   ├── login.php             # Login page
-│   ├── proses_login.php      # Authentication logic (included by login.php)
-│   ├── logout.php            # Session destruction
-│   ├── kriteria.php          # Manage criteria weights (admin only)
-│   ├── edit_kriteria.php     # Edit criterion
-│   ├── update_kriteria.php   # Update criterion handler
-│   ├── anggota.php           # Manage member data (admin only)
-│   ├── tambah_data.php       # Add new member
-│   ├── edit_data.php         # Edit member
-│   ├── delete_data.php       # Delete member
-│   ├── cek_hitung.php        # Select members for calculation
-│   ├── hasil.php             # Display all members with SAW calculation
-│   ├── hasil1.php            # Display selected members with SAW calculation
-│   ├── save_ranking.php      # Save calculation results to history
-│   ├── history.php           # View past calculations
-│   ├── detail_history.php    # View details of past calculation
-│   └── partials/
-│       ├── sidebar.php       # Navigation (role-based menu)
-│       ├── topnavbar.php     # Top bar with user profile
-│       └── footer.php        # Footer scripts
-└── assets/                   # CSS, JS, images (Bootstrap-based admin template)
-```
+### Request Flow
+Every page follows the same pattern:
+1. `include '../config/database.php'` — opens `$conn` (mysqli)
+2. `include 'partials/sidebar.php'` — starts the session and renders the nav
+3. Business logic / SQL queries inline in the view file
+4. `include 'partials/footer.php'` — closes HTML and loads JS
+
+There is no router, controller layer, or templating engine — each `.php` file in `views/` is a self-contained page.
 
 ### Session & Authentication
-- Session started in `proses_login.php` and `sidebar.php`
-- `$_SESSION['role']` determines menu access: `admin` vs `Kepala Koperasi`
-- Passwords stored as MD5 hash (not secure, but legacy)
+- `session_start()` is called inside `views/partials/sidebar.php` (not in each page)
+- `$_SESSION['role']` controls menu visibility: `admin` vs `Kepala Koperasi`
+- **Auth guards are commented out** in several files (`cek_hitung.php`, `sidebar.php`) — pages are accessible without login in the current state
+- Passwords stored as MD5 hash (legacy, not salted)
 - Logout: `views/logout.php` destroys session and redirects to login
 
 ### Role-Based Access
-- **admin**: Full access - Dashboard, Kriteria, Anggota, Hitung, History
-- **Kepala Koperasi**: Limited access - Dashboard, History only
-- Sidebar in `views/partials/sidebar.php` controls menu visibility
+- **admin**: Dashboard, Kriteria, Anggota, Hitung, History
+- **Kepala Koperasi**: Dashboard, History only
+- Access is enforced only via sidebar menu visibility — there is no server-side route guard on individual pages
 
-## SAW Method Implementation
+## SAW Calculation Pipeline
 
-The Simple Additive Weighting algorithm is implemented in `hasil.php` and `hasil1.php`:
+The calculation runs across three files in sequence:
 
-### Key Criteria (9 total)
-1. **C1** - Tingkat Golongan ASN (civil service grade)
-2. **C2** - Lamanya Jangka Waktu Pinjam (loan duration)
-3. **C3** - Banyaknya realisasi pencairan (1 tahun)
-4. **C4** - Besarnya jasa yang diterima
-5. **C5** - Frekuensi jumlah pinjaman
-6. **C6** - Banyaknya jumlah modal (1 tahun)
-7. **C7** - Tanggal terdaftar sebagai anggota
-8. **C8** - Intensitas transaksi simpanan wajib (1 tahun)
-9. **C9** - Intensitas angsuran pinjaman
+1. **`cek_hitung.php`** — member selection table with checkboxes; on POST, redirects to `hasil1.php?id_anggota=1,2,3`
+2. **`hasil1.php`** — receives `$_GET['id_anggota']` as a raw comma-separated string, runs the SAW algorithm, and renders the ranked results table
+3. **`save_ranking.php`** — called via POST from the results page; inserts one row into `hasil` then inserts ranked members into `detail_hasil`
 
-### Calculation Flow
-1. **Normalization** (`normalize()` function): Converts raw values to 1-5 scale based on criteria-specific ranges
-2. **Max Values**: Find maximum value for each criterion across selected members
-3. **Normalized Matrix**: Divide each member's value by max value for that criterion
-4. **Preference Value**: `V_i = Σ (W_j × R_ij)` where W = weight, R = normalized value
-5. **Ranking**: Sort by preference value (descending)
+`hasil.php` (no suffix) runs the same SAW algorithm over **all** members rather than a selection.
 
-### Important Validation
-- **Total weight must equal 1**: Calculations blocked if `SUM(bobot) != 1`
-- **Minimum 2 members**: `hasil1.php` requires selecting 2+ members
+### SAW Algorithm (in `hasil.php` / `hasil1.php`)
+1. **`normalize($value, $criteria)`**: Maps raw values to a 1–5 scale using criteria-specific ranges
+2. **Max per criterion**: Find the highest normalized value across all selected members
+3. **Normalized matrix**: `R_ij = normalized_value / max_for_criterion`
+4. **Preference value**: `V_i = Σ (W_j × R_ij)` where W = bobot from `kriteria` table
+5. **Ranking**: Sort descending by `V_i`
 
-### Weight Management
-- Criteria weights stored in `kriteria` table
-- Sum must equal exactly 1.0 for calculations to proceed
-- Admin can edit weights via `kriteria.php` → `edit_kriteria.php`
+### Key Criteria (9 total, hard-coded in `normalize()`)
+| Code | Name | Notes |
+|------|------|-------|
+| C1 | Tingkat Golongan ASN | Enum: HONORER/Gol.I–IV → 1–5 |
+| C2 | Lamanya Jangka Waktu Pinjam | ≤32/≤64/≤96 months → 1–3 |
+| C3 | Banyaknya realisasi pencairan | Currency ranges → 1–5 |
+| C4 | Besarnya jasa yang diterima | Currency ranges → 1–5 |
+| C5 | Frekuensi jumlah pinjaman | Count 1–6+ → 1–5 |
+| C6 | Banyaknya jumlah modal | Only returns 2 or 4 (incomplete) |
+| C7 | Tanggal terdaftar sebagai anggota | Date ranges 2014–2028 → 1–5 |
+| C8 | Intensitas transaksi simpanan wajib | `decimal(10,6)` — input pakai titik: `0.005782`. Only two ranges covered in normalize() |
+| C9 | Intensitas angsuran pinjaman | Currency ranges → 1–3 |
+
+### Important Validations
+- **Total weight must equal 1.0**: `SUM(bobot)` is checked with `round(..., 2)`; calculations are blocked if it doesn't match
+- **Minimum 2 members required** for `hasil1.php`
 
 ## Database Tables
 
 | Table | Purpose |
 |-------|---------|
-| `users` | Authentication (id_user, nama, username, password, role) |
+| `users` | Authentication (id_user, nama, username, password MD5, role) |
 | `kriteria` | Criteria definitions (id_kriteria, nama_kriteria, bobot, jenis) |
-| `anggota` | Member data with 9 criteria values |
-| `hasil` | Calculation history (timestamp) |
-| `detail_hasil` | Ranking results linked to hasil |
+| `anggota` | Member data with 9 criteria value columns |
+| `hasil` | Calculation history (auto-timestamp, no explicit columns) |
+| `detail_hasil` | Ranked results: id_hasil, nama, nilai_akhir, ranking |
+
+## Known Issues / Gotchas
+
+- **`var_dump($selected_ids)` at `hasil1.php:76`** is left in — it outputs debug noise on the results page
+- **Auth guards are commented out** across multiple files; the site is effectively open without login enforcement
+- **SQL injection risk**: `$selected_ids` from `$_GET['id_anggota']` is interpolated directly into queries in `hasil1.php`; `save_ranking.php` also uses unescaped `$_POST` values in INSERT statements
+- **`normalize()` incomplete cases**: C6 only returns 2 or 4, C8 only covers two sub-ranges, C9 only maps to 1–3. Values outside defined ranges return `0`, which silently skews rankings
+- **`$conn` is a global** opened in `database.php` and used by name across all files — there is no connection-passing mechanism
 
 ## Common Tasks
 
-### Add a New Criterion
-1. Add to `kriteria` table via SQL
-2. Update `normalize()` function in `hasil.php` and `hasil1.php`
-3. Add column to `anggota` table
-4. Update calculation formulas (9 hard-coded criteria references)
-5. Update forms and table displays
-
 ### Debug SAW Calculation
-- Check `normalize()` function returns correct scale (1-5)
-- Verify `SUM(bobot) = 1` in `kriteria` table
-- In `hasil1.php`, check `$selected_ids` from URL parameter
-- Use `var_dump()` on `$preferensi` array to see intermediate results
+- Check `normalize()` returns correct scale (1–5) for the criterion in question
+- Verify `SELECT SUM(bobot) FROM kriteria` equals 1.0
+- In `hasil1.php`, `$selected_ids` comes from `$_GET['id_anggota']` — confirm it's populated
+- Temporarily `var_dump($preferensi)` after the preference calculation loop
+
+### Add a New Criterion
+1. Add column to `anggota` table and a row to `kriteria`
+2. Add a `case` to `normalize()` in both `hasil.php` and `hasil1.php`
+3. Update the preference calculation loops (currently loop over 9 hard-coded criteria)
+4. Update member add/edit forms (`tambah_data.php`, `edit_data.php`) and display tables
 
 ### Change Database Credentials
 Edit `config/database.php`:
