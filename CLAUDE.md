@@ -13,6 +13,7 @@ This is a **Sistem Pendukung Keputusan (SPK)** - Decision Support System for a K
 - Connection config: `config/database.php`
 - Default XAMPP credentials: `localhost`, `root`, empty password
 - Import schema: `koperasi-saw.sql`
+- Incremental schema changes live in `migrations/*.sql` — apply manually (not auto-run) against an existing database, e.g. `mysql -u root koperasi-saw < migrations/<file>.sql`
 
 ### Running the Application
 - Requires XAMPP or similar PHP/MySQL server
@@ -33,7 +34,7 @@ Every page follows the same pattern:
 3. Business logic / SQL queries inline in the view file
 4. `include 'partials/footer.php'` — closes HTML and loads JS
 
-There is no router, controller layer, or templating engine — each `.php` file in `views/` is a self-contained page.
+There is no router, controller layer, or templating engine — each `.php` file in `views/` is a self-contained page. Incremental schema changes live in `migrations/*.sql` and are applied manually, not auto-run.
 
 ### Session & Authentication
 - `session_start()` is called inside `views/partials/sidebar.php` (not in each page)
@@ -108,7 +109,7 @@ The calculation runs across three files in sequence:
 - Temporarily `var_dump($preferensi)` after the preference calculation loop
 
 ### Add a New Criterion
-1. Add column to `anggota` table and a row to `kriteria`
+1. Add column to `anggota` table and a row to `kriteria` (write a `migrations/*.sql` file rather than editing `koperasi-saw.sql` in place, so existing databases can be updated incrementally)
 2. Add a `case` to `normalize()` in both `hasil.php` and `hasil1.php`
 3. Update the preference calculation loops (currently loop over 9 hard-coded criteria)
 4. Update member add/edit forms (`tambah_data.php`, `edit_data.php`) and display tables

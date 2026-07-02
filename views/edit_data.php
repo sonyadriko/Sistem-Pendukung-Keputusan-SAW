@@ -37,18 +37,20 @@ if (isset($_POST['update'])) {
     $modal = $_POST['modal'];
     $simpanan = $_POST['simpanan'];
     $angsuran = str_replace(".", "", $_POST['angsuran']); // Mata uang intensitas angsuran
+    $tanggal_terdaftar = $_POST['tanggal_terdaftar']; // Mengambil tanggal terdaftar
 
     // Update query
-    $query = "UPDATE anggota SET 
-                nama_anggota='$nama', 
-                tingkat_golongan_asn='$tingkat', 
-                jangka_waktu_pinjam='$jangka_waktu', 
-                realisasi_pencairan='$realisasi', 
-                jasa_diterima='$jasa', 
-                frekuensi_pinjaman='$frekuensi', 
-                jumlah_modal='$modal', 
-                intensitas_simpanan_wajib='$simpanan', 
-                intensitas_angsuran='$angsuran'
+    $query = "UPDATE anggota SET
+                nama_anggota='$nama',
+                tingkat_golongan_asn='$tingkat',
+                jangka_waktu_pinjam='$jangka_waktu',
+                realisasi_pencairan='$realisasi',
+                jasa_diterima='$jasa',
+                frekuensi_pinjaman='$frekuensi',
+                jumlah_modal='$modal',
+                intensitas_simpanan_wajib='$simpanan',
+                intensitas_angsuran='$angsuran',
+                tgl_terdaftar='$tanggal_terdaftar'
               WHERE id_anggota='$id'";
 
     $result = mysqli_query($conn, $query);
@@ -152,6 +154,11 @@ if (isset($_POST['update'])) {
                                     <label>Intensitas Angsuran Pinjaman (IDR)</label>
                                     <input type="text" name="angsuran" class="form-control"
                                         value="<?php echo number_format($angsuran, 2, ',', '.'); ?>" required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label>Tanggal Terdaftar</label>
+                                    <input type="date" name="tanggal_terdaftar" class="form-control"
+                                        value="<?php echo $tgl_terdaftar; ?>" required>
                                 </div>
                                 <button type="submit" name="update" class="btn btn-primary mt-4">Update</button>
                                 <a href="anggota.php" class="btn btn-secondary mt-4">Batal</a>
