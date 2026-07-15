@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                                                     <td><?php echo number_format($simpanan, 6, ',', '.'); ?></td>
                                                     <td><?php echo number_format($angsuran, 0, ',', '.'); ?></td>
                                                     <td>
-                                                        <input type="checkbox" name="selected_items[]"
+                                                        <input type="checkbox"
                                                             value="<?php echo $id ?>" class="action-checkbox">
 
                                                     </td>
@@ -162,20 +162,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     <!-- DataTable Initialization -->
     <script>
     $(document).ready(function() {
-        $('#dataTable').DataTable();
+        var table = $('#dataTable').DataTable();
 
-        // Select All functionality
+        // Select All functionality (covers rows on every page, not just the current one)
         $('#select-all').change(function() {
-            $('.action-checkbox').prop('checked', $(this).prop('checked'));
+            var checked = $(this).prop('checked');
+            table.rows().nodes().to$().find('.action-checkbox').prop('checked', checked);
         });
 
-        // Form validation - check if at least 3 checkboxes are selected
+        // Form validation - check if at least 3 members are selected, across all pages
         $('form').submit(function(e) {
-            const selectedCount = $('.action-checkbox:checked').length;
-            if (selectedCount < 3) {
+            var $form = $(this);
+            var checkedIds = table.rows().nodes().to$().find('.action-checkbox:checked')
+                .map(function() { return $(this).val(); }).get();
+
+            if (checkedIds.length < 3) {
                 e.preventDefault();
                 alert('Pilih minimal 3 anggota untuk melakukan perhitungan SPK!');
+                return;
             }
+
+            // Checkboxes have no name attribute (DataTables detaches other pages'
+            // rows from the DOM, so native form serialization would drop them).
+            // Submit the collected ids explicitly via hidden inputs instead.
+            $form.find('input.selected-items-hidden').remove();
+            checkedIds.forEach(function(id) {
+                $form.append(
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'selected_items[]',
+                        class: 'selected-items-hidden',
+                        value: id
+                    })
+                );
+            });
         });
     });
     </script>
