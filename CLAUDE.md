@@ -66,17 +66,19 @@ The calculation runs across three files in sequence:
 5. **Ranking**: Sort descending by `V_i`
 
 ### Key Criteria (9 total, hard-coded in `normalize()`)
-| Code | Name | Notes |
-|------|------|-------|
-| C1 | Tingkat Golongan ASN | Enum: HONORER/Gol.I–IV → 1–5 |
-| C2 | Lamanya Jangka Waktu Pinjam | ≤32/≤64/≤96 months → 1–3 |
-| C3 | Banyaknya realisasi pencairan | Currency ranges → 1–5 |
-| C4 | Besarnya jasa yang diterima | Currency ranges → 1–5 |
-| C5 | Frekuensi jumlah pinjaman | Count 1–6+ → 1–5 |
-| C6 | Banyaknya jumlah modal | Only returns 2 or 4 (incomplete) |
-| C7 | Tanggal terdaftar sebagai anggota | Date ranges 2014–2028 → 1–5 |
-| C8 | Intensitas transaksi simpanan wajib | `decimal(10,6)` — input pakai titik: `0.005782`. Only two ranges covered in normalize() |
-| C9 | Intensitas angsuran pinjaman | Currency ranges → 1–3 |
+| Code | Name | Satuan | Notes |
+|------|------|--------|-------|
+| C1 | Tingkat Golongan ASN | Golongan | Enum: HONORER/Gol.I–IV → 1–5 |
+| C2 | Lamanya Jangka Waktu Pinjam | Bulan | ≤32/≤64/≤96 months → 1–3 |
+| C3 | Banyaknya realisasi pencairan | Rp | Currency ranges → 1–5 |
+| C4 | Besarnya jasa yang diterima | Rp | Currency ranges → 1–5 |
+| C5 | Frekuensi jumlah pinjaman | Kali/Tahun | Count 1–6+ → 1–5 |
+| C6 | Banyaknya jumlah modal | % | Only returns 2 or 4 (incomplete) |
+| C7 | Tanggal terdaftar sebagai anggota | - | Date ranges 2014–2028 → 1–5 |
+| C8 | Intensitas transaksi simpanan wajib | % | `decimal(10,6)` — input pakai titik: `0.005782`. Only two ranges covered in normalize() |
+| C9 | Intensitas angsuran pinjaman | Rp | Currency ranges → 1–3 |
+
+Units (satuan) are display-only labels hard-coded in `views/kriteria.php` (`$satuanKriteria` lookup by `id_kriteria`) and mirrored as label suffixes in `views/anggota.php`, `views/tambah_data.php`, and `views/edit_data.php`. They are not stored in the database.
 
 ### Important Validations
 - **Total weight must equal 1.0**: `SUM(bobot)` is checked with `round(..., 2)`; calculations are blocked if it doesn't match

@@ -106,7 +106,7 @@ if (isset($_POST['update'])) {
                                         required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Tingkat Golongan ASN</label>
+                                    <label>Tingkat Golongan ASN (Golongan)</label>
                                     <select name="tingkat" class="form-control" required>
                                         <option value="Honorer" <?php if ($tingkat == "Honorer") echo "selected"; ?>>
                                             Honorer</option>
@@ -121,42 +121,42 @@ if (isset($_POST['update'])) {
                                     </select>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Jangka Waktu Pinjam</label>
+                                    <label>Jangka Waktu Pinjam (Bulan)</label>
                                     <input type="number" name="jangka_waktu" class="form-control"
                                         value="<?php echo $jangka_waktu; ?>" required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Realisasi Pencairan (IDR)</label>
+                                    <label>Realisasi Pencairan (Rp)</label>
                                     <input type="text" name="realisasi" class="form-control"
                                         value="<?php echo number_format($realisasi, 2, ',', '.'); ?>" required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Besarnya Jasa yang Diterima (IDR)</label>
+                                    <label>Besarnya Jasa yang Diterima (Rp)</label>
                                     <input type="text" name="jasa" class="form-control"
                                         value="<?php echo number_format($jasa, 2, ',', '.'); ?>" required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Frekuensi Pinjaman</label>
+                                    <label>Frekuensi Pinjaman (Kali/Tahun)</label>
                                     <input type="number" name="frekuensi" class="form-control"
                                         value="<?php echo $frekuensi; ?>" required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Jumlah Modal</label>
+                                    <label>Jumlah Modal (%)</label>
                                     <input type="number" name="modal" class="form-control" value="<?php echo $modal; ?>"
                                         required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Intensitas Simpanan Wajib</label>
+                                    <label>Intensitas Simpanan Wajib (%)</label>
                                     <input type="number" step="any" name="simpanan" class="form-control"
                                         value="<?php echo $simpanan; ?>" required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Intensitas Angsuran Pinjaman (IDR)</label>
+                                    <label>Intensitas Angsuran Pinjaman (Rp)</label>
                                     <input type="text" name="angsuran" class="form-control"
                                         value="<?php echo number_format($angsuran, 2, ',', '.'); ?>" required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label>Tanggal Terdaftar</label>
+                                    <label>Tanggal Terdaftar (-)</label>
                                     <input type="date" name="tanggal_terdaftar" class="form-control"
                                         value="<?php echo $tgl_terdaftar; ?>" required>
                                 </div>

@@ -13,6 +13,19 @@ $totalBobotResult = mysqli_query($conn, $totalBobotQuery);
 $totalBobotData = mysqli_fetch_assoc($totalBobotResult);
 $totalBobot = (float) $totalBobotData['total_bobot'];
 $bobotValid = abs($totalBobot - 1.0) < 0.0001; // Valid if rounded sum equals 1.0
+
+// Satuan per kriteria (urutan tetap mengikuti id_kriteria 1-9 / C1-C9)
+$satuanKriteria = [
+    1 => 'Golongan',
+    2 => 'Bulan',
+    3 => 'Rp',
+    4 => 'Rp',
+    5 => 'Kali/Tahun',
+    6 => '%',
+    7 => '-',
+    8 => '%',
+    9 => 'Rp',
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,6 +105,7 @@ $bobotValid = abs($totalBobot - 1.0) < 0.0001; // Valid if rounded sum equals 1.
                                         <tr>
                                             <th>#</th>
                                             <th>Nama Kriteria</th>
+                                            <th>Satuan</th>
                                             <th>Bobot Kriteria</th>
                                             <th>Jenis Kriteria</th>
                                             <th>Aksi</th>
@@ -106,10 +120,12 @@ $bobotValid = abs($totalBobot - 1.0) < 0.0001; // Valid if rounded sum equals 1.
                                             $nama = htmlspecialchars($display['nama_kriteria']);
                                             $bobot = htmlspecialchars($display['bobot']);
                                             $jenis = htmlspecialchars($display['jenis']);
+                                            $satuan = $satuanKriteria[(int)$id] ?? '-';
                                     ?>
                                         <tr>
                                             <td><?php echo $no; ?></td>
                                             <td><?php echo $nama; ?></td>
+                                            <td><?php echo $satuan; ?></td>
                                             <td><?php echo number_format((float)$bobot, 4); ?></td>
                                             <td>
                                                 <span class="badge bg-<?php echo $jenis === 'Benefit' ? 'success' : 'danger'; ?>">

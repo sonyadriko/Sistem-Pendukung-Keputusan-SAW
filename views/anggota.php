@@ -63,15 +63,15 @@ include '../config/database.php';
                                         <tr>
                                             <th>#</th>
                                             <th>Nama Anggota</th>
-                                            <th>Tingkat Golongan ASN</th>
-                                            <th>Jangka Waktu Pinjam</th>
-                                            <th>Realisasi Pencairan</th>
-                                            <th>Jasa Diterima</th>
-                                            <th>Frekuensi Pinjaman</th>
-                                            <th>Jumlah Modal</th>
-                                            <th>Tanggal Terdaftar</th>
-                                            <th>Intensitas Simpanan Wajib</th>
-                                            <th>Intensitas Angsuran</th>
+                                            <th>Tingkat Golongan ASN (Golongan)</th>
+                                            <th>Jangka Waktu Pinjam (Bulan)</th>
+                                            <th>Realisasi Pencairan (Rp)</th>
+                                            <th>Jasa Diterima (Rp)</th>
+                                            <th>Frekuensi Pinjaman (Kali/Tahun)</th>
+                                            <th>Jumlah Modal (%)</th>
+                                            <th>Tanggal Terdaftar (-)</th>
+                                            <th>Intensitas Simpanan Wajib (%)</th>
+                                            <th>Intensitas Angsuran (Rp)</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>

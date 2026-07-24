@@ -73,7 +73,7 @@ if (isset($_POST['tambah'])) {
                                                 placeholder="Masukkan nama anggota" required>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label>Tingkat Golongan ASN</label>
+                                            <label>Tingkat Golongan ASN (Golongan)</label>
                                             <select name="tingkat" class="form-control" required>
                                                 <option value="Honorer">Honorer</option>
                                                 <option value="Gol. I">Gol. I</option>
@@ -83,17 +83,17 @@ if (isset($_POST['tambah'])) {
                                             </select>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label>Jangka Waktu Pinjam (bulan)</label>
+                                            <label>Jangka Waktu Pinjam (Bulan)</label>
                                             <input type="number" name="jangka_waktu" class="form-control"
                                                 placeholder="Masukkan jangka waktu pinjam" required>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label>Realisasi Pencairan (IDR)</label>
+                                            <label>Realisasi Pencairan (Rp)</label>
                                             <input type="text" name="realisasi" class="form-control"
                                                 placeholder="Masukkan realisasi pencairan" required>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label>Besarnya Jasa yang Diterima (IDR)</label>
+                                            <label>Besarnya Jasa yang Diterima (Rp)</label>
                                             <input type="text" name="jasa" class="form-control"
                                                 placeholder="Masukkan besarnya jasa yang diterima" required>
                                         </div>
@@ -101,27 +101,27 @@ if (isset($_POST['tambah'])) {
                                     <!-- Right Column -->
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label>Frekuensi Pinjaman (bulan)</label>
+                                            <label>Frekuensi Pinjaman (Kali/Tahun)</label>
                                             <input type="number" name="frekuensi" class="form-control"
                                                 placeholder="Masukkan frekuensi pinjaman" required>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label>Jumlah Modal (IDR)</label>
+                                            <label>Jumlah Modal (%)</label>
                                             <input type="number" name="modal" class="form-control"
                                                 placeholder="Masukkan jumlah modal" required>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label>Intensitas Simpanan Wajib</label>
+                                            <label>Intensitas Simpanan Wajib (%)</label>
                                             <input type="number" step="any" name="simpanan" class="form-control"
                                                 placeholder="Masukkan intensitas simpanan wajib (contoh: 0.005782)" required>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label>Intensitas Angsuran Pinjaman (IDR)</label>
+                                            <label>Intensitas Angsuran Pinjaman (Rp)</label>
                                             <input type="text" name="angsuran" class="form-control"
                                                 placeholder="Masukkan intensitas angsuran pinjaman" required>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label>Tanggal Terdaftar</label>
+                                            <label>Tanggal Terdaftar (-)</label>
                                             <input type="date" name="tanggal_terdaftar" class="form-control" required>
                                         </div>
                                     </div>
